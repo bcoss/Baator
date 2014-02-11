@@ -14,26 +14,17 @@ import org.apache.commons.lang.exception.*;
 //https://api.themoviedb.org/3/movie/550?api_key=b59fb8bc4118e8423f340c9fbd63f4de
 
 public class Connect {
+private static final String apiCode = "b59fb8bc4118e8423f340c9fbd63f4de";
 
 
-	public static void main(String[] args) throws Exception {
-	String apiCode = "b59fb8bc4118e8423f340c9fbd63f4de";
-	String st = getSearchURL(apiCode);
-	
-	System.out.println(st);
-	//writeOut();
-	
-	}
 
 
-	public static String getSearchURL(String apiCode) throws UnsupportedEncodingException{
+	public static String getSearchURL(String searchString) throws UnsupportedEncodingException{
 
-		Scanner n = new Scanner(System.in);	
-		String searchString = n.nextLine();
-		n.close();
 		
 		String x = "https://api.themoviedb.org/3/search/person?api_key=" +apiCode+ "&query="+ 
 				URLEncoder.encode(searchString, "ISO-8859-1");
+		
 		x.concat(searchString);
 		return x;
 
