@@ -33,23 +33,35 @@ public class Driver {
 	public static Actor makeActor() throws Exception{
 		Connect conn = new Connect();
 		Scanner n = new Scanner(System.in);
-		String id;
+		String id = "";
 		String searchString;
 		Actor act;
-
+		
 		System.out.println("Enter an actors name: ");
 		searchString = n.nextLine();
 		
 		String actorOneURL = conn.getSearchURL(searchString);
-		System.out.println(actorOneURL);
+		//System.out.println(actorOneURL);
 		String actorOneInfo = conn.readURL(actorOneURL);
-		System.out.println(actorOneInfo);
-		id = Parser.getActorID(Parser.getResults(actorOneInfo));
-		if(Parser.getResults(actorOneInfo).isEmpty()){
-			System.out.println("Either actors name is misspelled or does not exist.");
-			makeActor();
-		}
+		//System.out.println(actorOneInfo);
+
+		while(id.equals("")){
+		if( checkActor(actorOneInfo) ){
+			id = Parser.getActorID(Parser.getResults(actorOneInfo));
+			}
 		else{
+			System.out.println("Either the actors name is wrong or does not exist");
+			System.out.println("Enter an actors name: ");
+			searchString = n.nextLine();
+			
+			 actorOneURL = conn.getSearchURL(searchString);
+			//System.out.println(actorOneURL);
+			 actorOneInfo = conn.readURL(actorOneURL);
+			//System.out.println(actorOneInfo);			
+			
+		}
+		}
+		
 		act = new Actor(id, searchString);
 		
 		//System.out.println(act.id);
@@ -67,8 +79,15 @@ public class Driver {
 		act.movies = Parser.getMovies(Parser.getCastArray(movieInfo));
 		//act.printMovies();
 		return act;
+		
+	}
+	public static boolean checkActor(String actorInfo){
+		boolean isValid = false;
+		if(! Parser.getResults(actorInfo).isEmpty() ){
+			isValid = true;
+			
 		}
-		return null;
+		return isValid;
 		
 	}
 	
