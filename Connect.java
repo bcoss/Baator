@@ -32,7 +32,7 @@ public class Connect {
 		String searchString = n.nextLine();
 		n.close();
 		
-		String x = "https://api.themoviedb.org/3/search/person?api_code=" +apiCode+ "?query="+ 
+		String x = "https://api.themoviedb.org/3/search/person?api_key=" +apiCode+ "&query="+ 
 				URLEncoder.encode(searchString, "ISO-8859-1");
 		x.concat(searchString);
 		return x;
