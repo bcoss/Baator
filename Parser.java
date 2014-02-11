@@ -1,6 +1,6 @@
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
+import java.util.*;
 
 public class Parser {
 	
@@ -24,6 +24,28 @@ public class Parser {
 		}
 
     	return id;
+	}
+	
+	public static JSONArray getCastArray(String info){
+		JSONObject total = JSONObject.fromObject(info);
+		JSONArray results = (JSONArray) total.get("cast");
+		return results;
+		
+	}
+	
+	
+	public static List<String> getMovies(JSONArray movies){
+		List<String> movieList = new ArrayList<String>();
+		JSONObject movie;
+		
+		for(int i=0; i < movies.size(); i++){
+			movie = movies.getJSONObject(i);
+			movieList.add(movie.getString("title"));
+		}
+		
+		return movieList;
+		
+		
 	}
 	
 	
