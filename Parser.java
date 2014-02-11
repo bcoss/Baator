@@ -11,6 +11,7 @@ public class Parser {
 	public static JSONArray getResults(String info){
 		JSONObject total = JSONObject.fromObject(info);
 		JSONArray results = (JSONArray) total.get("results");
+	
 		return results;
 	}
 	

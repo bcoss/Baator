@@ -6,22 +6,34 @@ public class Driver {
 		act1 = makeActor();
 		act2 = makeActor();
 		
+		List<String> commonMovies = new ArrayList<String>();
+		
 		for(int i=0; i< act1.movies.size(); i++){
 			for(int j=0;j<act2.movies.size();j++){
 				if(act1.movies.get(i).contains((act2.movies.get(j)))){
-					System.out.println("The two actors have the movie \"" +
-							act1.movies.get(i)+ "\"in common");
+					commonMovies.add(act1.movies.get(i));
 				}
 			}
 		}
+		
+		if(commonMovies.isEmpty()){
+			System.out.println("The actors share no common movies.");
+		}
+		else{
+			for(int i=0;i<commonMovies.size();i++){
+				System.out.println("The two actors have the movie \"" +
+						commonMovies.get(i)+ "\"in common");
+			}
+		}
 	
-
+	
 	//todo: add second actor
 	}
 	
 	public static Actor makeActor() throws Exception{
 		Connect conn = new Connect();
 		Scanner n = new Scanner(System.in);
+		String id;
 		String searchString;
 		Actor act;
 
@@ -31,10 +43,14 @@ public class Driver {
 		String actorOneURL = conn.getSearchURL(searchString);
 		System.out.println(actorOneURL);
 		String actorOneInfo = conn.readURL(actorOneURL);
-		
 		System.out.println(actorOneInfo);
-		
-		act = new Actor(Parser.getActorID(Parser.getResults(actorOneInfo)), searchString);
+		id = Parser.getActorID(Parser.getResults(actorOneInfo));
+		if(Parser.getResults(actorOneInfo).isEmpty()){
+			System.out.println("Either actors name is misspelled or does not exist.");
+			makeActor();
+		}
+		else{
+		act = new Actor(id, searchString);
 		
 		//System.out.println(act.id);
 		//System.out.println(act.name);
@@ -51,6 +67,8 @@ public class Driver {
 		act.movies = Parser.getMovies(Parser.getCastArray(movieInfo));
 		//act.printMovies();
 		return act;
+		}
+		return null;
 		
 	}
 	
