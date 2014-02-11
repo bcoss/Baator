@@ -19,20 +19,23 @@ private static final String apiCode = "b59fb8bc4118e8423f340c9fbd63f4de";
 
 
 
-	public static String getSearchURL(String searchString) throws UnsupportedEncodingException{
+	public String getSearchURL(String searchString) throws Exception{
 
 		
 		String x = "https://api.themoviedb.org/3/search/person?api_key=" +apiCode+ "&query="+ 
 				URLEncoder.encode(searchString, "ISO-8859-1");
 		
 		x.concat(searchString);
+		
 		return x;
 
 		
     }
+	
+
 
 	//given code reads URL 
-    public static String readURL(String webservice) throws Exception {
+    public String readURL(String webservice) throws Exception {
     	URL oracle = new URL(webservice);
     	BufferedReader in = new BufferedReader(
         new InputStreamReader(
@@ -47,62 +50,7 @@ private static final String apiCode = "b59fb8bc4118e8423f340c9fbd63f4de";
     	in.close();
     	return result;
     }
-    
-  
-    //writes weather report into the console and output.txt
-  /*  public static void writeOut(){
-    	BufferedWriter writer = null;
-    	
 
-        try
-        {
-                writer = new BufferedWriter( new FileWriter("output.txt"));
-                
-                
-                
-                while(st.isEmpty()==false){       
-                    
-                	String tempJSON = st.pop();
-                	String tempConditions;
-                	JSONObject x = JSONObject.fromObject(tempJSON);
-                	System.out.println(x);
-                	JSONObject weatherData=(JSONObject)(x.get("weatherObservation")); 
-                	
-                	System.out.println("Station:  " + weatherData.get("stationName"));
-                	System.out.println("Temperature (Centigrade):  " + weatherData.get("temperature"));
-                	System.out.println("Clouds:  " + weatherData.get("clouds")+"\n");
-                	
-                	tempConditions = 
-                			"Station:			"+weatherData.get("stationName")+".\n"
-                			+"Date/Time:			"+weatherData.get("datetime")+"\n"
-                			+"Temperature:		"+weatherData.get("temperature")+"° Centigrade.\n"
-                			+"Clouds:				"+weatherData.get("clouds")+".\n"
-                			+"Dew Point:			"+weatherData.get("dewPoint")+"° Centigrade.\n"
-                			+"Wind Speed:			"+weatherData.get("windSpeed")+" Mp/h.\n"
-                			+"Humidity:			"+weatherData.get("humidity")+"%.\n";
-                	
-
-                	
-                	               	
-                	writer.write("***********************************************************\n");               	
-                	writer.write(tempConditions);
-                }
-        }
-
-                
-        
-        catch (IOException e){
-        }
-        finally{
-        	try{
-        		if ( writer != null)
-        			writer.close( );
-        	}
-        	catch ( IOException e){
-        	}
-        }
-        }
-    */
     
 }
 
